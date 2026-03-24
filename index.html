@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual de T.I. - Central de Serviços Compartilhados Neural</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+:root {
+  --primary-color: #075971;
+  --secondary-color: #0ca5c7;
+  --bg-color: #096f8e;
+  --text-color: #f0f0f0;
+  --text-muted: #cccccc;
+  --white: #ffffff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease-in-out;
+}
+
+body {
+  font-family: "Outfit", "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* --- CAPA DESLIZANTE --- */
+#cover-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("https://i.ibb.co/1Yzb7KP3/Captura-de-tela-2025-07-04-104849.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+#cover-page.hidden {
+  transform: translateY(-100%);
+}
+
+#cover-page h1 {
+  font-size: 4em;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  border-bottom: 4px solid var(--white);
+  padding-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+#enter-button {
+  position: absolute;
+  bottom: 60px;
+  padding: 18px 40px;
+  border: 2px solid var(--white);
+  border-radius: 50px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+#enter-button:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+#enter-button i {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Header */
+header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 15px 30px;
+  text-align: center;
+  border-bottom: 4px solid var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.logo-link img {
+  height: 80px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo-link img:hover {
+  transform: scale(1.05);
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 2.2em;
+  font-weight: 700;
+}
+
+.header-title p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+/* Tabs */
+nav {
+  background-color: var(--primary-color);
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tab-button {
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+  padding: 18px 25px;
+  cursor: pointer;
+  font-size: 1.05em;
+  font-weight: 500;
+  transition: var(--transition);
+  border-bottom: 3px solid transparent;
+}
+
+.tab-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.tab-button.active {
+  background-color: var(--bg-color);
+  color: var(--white);
+  border-bottom: 3px solid var(--white);
+}
+
+.tab-button i {
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+/* Main Content */
+main {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tab-content {
+  display: none;
+  animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cards */
+.card {
+  background-color: var(--primary-color);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--secondary-color);
+}
+
+.card-header {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.card-header i {
+  font-size: 1.8em;
+  margin-right: 20px;
+  color: var(--secondary-color);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.card-body h3 {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  margin: 40px 0 25px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-body h3:first-of-type {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.card-body h3 i {
+  margin-right: 15px;
+  color: var(--secondary-color);
+}
+
+/* Grids */
+.tools-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
+}
+
+.team-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.tool-item,
+.team-item {
+  background: linear-gradient(135deg, var(--bg-color) 0%, #075971 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.tool-item:hover,
+.team-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border-color: var(--secondary-color);
+}
+
+.tool-item i,
+.team-item i {
+  font-size: 3.5em;
+  color: var(--white);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.tool-name,
+.team-item h4 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2em;
+  color: var(--white);
+}
+
+.team-item p {
+  font-size: 0.95em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Modals */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  transition: var(--transition);
+}
+
+.modal-content {
+  background-color: var(--primary-color);
+  margin: 5% auto;
+  padding: 40px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2.5em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close-button:hover {
+  color: var(--white);
+}
+
+/* Sidebar */
+.sidebar {
+  height: 100%;
+  width: 320px;
+  position: fixed;
+  z-index: 11000;
+  top: 0;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  transform: translateX(-100%);
+  padding-top: 80px;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-item a {
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: var(--transition);
+}
+
+.sidebar-item a:hover {
+  background-color: var(--bg-color);
+  color: var(--white);
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.sidebar-item.active .submenu {
+  max-height: 1000px;
+}
+
+/* Search */
+.search-bar-container {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 25px 15px 60px;
+  border-radius: 50px;
+  border: 2px solid var(--secondary-color);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  font-size: 1.1em;
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--white);
+  box-shadow: 0 0 15px rgba(12, 165, 199, 0.4);
+}
+
+.search-bar-container i {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  font-size: 1.2em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0ebae1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #cover-page h1 {
+    font-size: 2.5em;
+  }
+  header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .header-title h1 {
+    font-size: 1.8em;
+  }
+  nav {
+    justify-content: space-around;
+  }
+  .tab-button {
+    padding: 15px 10px;
+    font-size: 0.9em;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
+
+</style>
+  </head>
+  <body style="overflow-y: hidden">
+    <!-- CAPA DESLIZANTE -->
+    <div id="cover-page">
+      <h1>Manual de T.I.</h1>
+      <div id="enter-button">
+        <i class="fas fa-chevron-up"></i>
+        <span>ENTRAR NO MANUAL</span>
+      </div>
+    </div>
+
+    <!-- Estrutura da Barra Lateral -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link">
+            <i class="fab fa-whatsapp"></i>
+            <span>Grupos de Trabalho</span>
+            <i class="fas fa-chevron-right arrow"></i>
+          </a>
+          <ul class="submenu">
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('grupoGeral');
+                  return false;
+                "
+                >Grupo Geral TI/GA</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('grupoLideres');
+                  return false;
+                "
+                >Grupo de Líderes</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('eventosCriticos');
+                  return false;
+                "
+                >Eventos Críticos</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('suporteN1');
+                  return false;
+                "
+                >Suporte N1</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('suporteN2');
+                  return false;
+                "
+                >Suporte N2</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('serviceDeskN1');
+                  return false;
+                "
+                >ServiceDesk N1</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('gestaoAcessos');
+                  return false;
+                "
+                >Gestão de Acessos</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('processosGLPI');
+                  return false;
+                "
+                >Processos GLPI</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="
+                  openGroupModal('fluxoHO');
+                  return false;
+                "
+                >Fluxo Home Office</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+    <header>
+      <div class="header-left">
+        <button
+          class="open-btn"
+          onclick="openSidebar()"
+          style="
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+          "
+        >
+          &#9776;
+        </button>
+        <a
+          href="#"
+          class="logo-link"
+          onclick="
+            openTab(event, 'inicio');
+            return false;
+          "
+        >
+          <img
+            src="https://i.ibb.co/rfR0ff5r/image-Photoroom.png"
+            alt="Logo Neural"
+          />
+        </a>
+      </div>
+      <div class="header-title">
+        <h1>Manual de T.I.</h1>
+        <p>Central de Serviços Compartilhados - Neural</p>
+      </div>
+      <div style="width: 80px"></div>
+      <!-- Spacer -->
+    </header>
+
+    <nav>
+      <button class="tab-button active" onclick="openTab(event, 'inicio')">
+        <i class="fas fa-home"></i> Início
+      </button>
+      <button class="tab-button" onclick="openTab(event, 'ferramentas')">
+        <i class="fas fa-tools"></i> Ferramentas
+      </button>
+      <button class="tab-button" onclick="openTab(event, 'processos')">
+        <i class="fas fa-project-diagram"></i> Processos
+      </button>
+      <button class="tab-button" onclick="openTab(event, 'organograma')">
+        <i class="fas fa-sitemap"></i> Organograma
+      </button>
+      <button class="tab-button" onclick="openTab(event, 'portais')">
+        <i class="fas fa-globe"></i> Portais
+      </button>
+      <button class="tab-button" onclick="openTab(event, 'sistemas-operacoes')">
+        <i class="fas fa-network-wired"></i> Sistemas
+      </button>
+    </nav>
+
+    <main>
+      <!-- Início -->
+      <div id="inicio" class="tab-content active">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-rocket"></i>
+            <h2>Boas-vindas à Equipe!</h2>
+          </div>
+          <div class="card-body">
+            <p>
+              Seja bem-vindo(a)! Este manual foi criado para ser seu guia de
+              referência no dia a dia do nosso departamento. Aqui você
+              encontrará informações essenciais sobre nossas ferramentas,
+              processos e a estrutura da nossa equipe.
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-sitemap"></i>
+            <h2>Estrutura Organizacional</h2>
+          </div>
+          <div class="card-body">
+            <p style="text-align: center; margin-bottom: 30px">
+              O time de Tecnologia faz parte da
+              <strong>Central de Serviços Compartilhados - Neural</strong>.
+            </p>
+
+            <h3><i class="fas fa-headset"></i> Suporte N1</h3>
+            <div class="team-grid">
+              <div class="team-item" onclick="openStructureModal('helpdesk')">
+                <i class="fas fa-headset"></i>
+                <h4>Helpdesk</h4>
+                <p>Atendimento remoto ágil.</p>
+              </div>
+              <div
+                class="team-item"
+                onclick="openStructureModal('fieldservice')"
+              >
+                <i class="fas fa-toolbox"></i>
+                <h4>Fieldservice</h4>
+                <p>Suporte presencial e hardware.</p>
+              </div>
+              <div
+                class="team-item"
+                onclick="openStructureModal('servicedesk')"
+              >
+                <i class="fas fa-concierge-bell"></i>
+                <h4>Servicedesk</h4>
+                <p>Ponto único de contato (SPOC).</p>
+              </div>
+              <div class="team-item" onclick="openStructureModal('ga')">
+                <i class="fas fa-user-shield"></i>
+                <h4>G.A</h4>
+                <p>Gestão de Acessos segura.</p>
+              </div>
+            </div>
+
+            <h3><i class="fas fa-cogs"></i> Suporte N2</h3>
+            <div class="team-grid">
+              <div class="team-item" onclick="openStructureModal('infra')">
+                <i class="fas fa-server"></i>
+                <h4>Infraestrutura</h4>
+                <p>Servidores e Datacenters.</p>
+              </div>
+              <div class="team-item" onclick="openStructureModal('redes')">
+                <i class="fas fa-network-wired"></i>
+                <h4>Redes</h4>
+                <p>Conectividade e Sistemas.</p>
+              </div>
+              <div class="team-item" onclick="openStructureModal('secinfo')">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Segurança</h4>
+                <p>Proteção de dados e LGPD.</p>
+              </div>
+              <div class="team-item" onclick="openStructureModal('telecom')">
+                <i class="fas fa-broadcast-tower"></i>
+                <h4>Telecom</h4>
+                <p>Comunicação unificada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ferramentas -->
+      <div id="ferramentas" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-tools"></i>
+            <h2>Ferramentas de Trabalho</h2>
+          </div>
+          <div class="card-body">
+            <div class="search-bar-container">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="ferramentas-search"
+                class="search-input"
+                onkeyup="
+                  filterGrid(
+                    'ferramentas-search',
+                    '#ferramentas .tool-item',
+                    '.tool-name',
+                    'flex',
+                  )
+                "
+                placeholder="Buscar ferramenta..."
+              />
+            </div>
+
+            <h3>Ponto e Comunicação</h3>
+            <div class="tools-grid">
+              <div class="tool-item" onclick="openToolModal('forponto')">
+                <i class="fas fa-clock"></i>
+                <p class="tool-name">Forponto</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('dponline')">
+                <i class="fas fa-user-clock"></i>
+                <p class="tool-name">DP Online</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('outlook')">
+                <i class="fas fa-envelope-open-text"></i>
+                <p class="tool-name">Outlook</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('discord')">
+                <i class="fab fa-discord"></i>
+                <p class="tool-name">Discord</p>
+              </div>
+            </div>
+
+            <h3>Atendimento e Suporte</h3>
+            <div class="tools-grid">
+              <div class="tool-item" onclick="openToolModal('glpi')">
+                <i class="fas fa-ticket-alt"></i>
+                <p class="tool-name">GLPI</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('anydesk')">
+                <i class="fas fa-desktop"></i>
+                <p class="tool-name">Anydesk</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('uvnc')">
+                <i class="fas fa-laptop-house"></i>
+                <p class="tool-name">UVNC</p>
+              </div>
+            </div>
+
+            <h3>Infraestrutura e Segurança</h3>
+            <div class="tools-grid">
+              <div class="tool-item" onclick="openToolModal('grafana')">
+                <i class="fas fa-chart-area"></i>
+                <p class="tool-name">Grafana</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('sophos')">
+                <i class="fas fa-user-secret"></i>
+                <p class="tool-name">VPN Sophos</p>
+              </div>
+              <div class="tool-item" onclick="openToolModal('ad')">
+                <i class="fas fa-address-book"></i>
+                <p class="tool-name">Active Directory</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Processos -->
+      <div id="processos" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-project-diagram"></i>
+            <h2>Processos Internos</h2>
+          </div>
+          <div class="card-body">
+            <div class="search-bar-container">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="processos-search"
+                class="search-input"
+                onkeyup="
+                  filterGrid(
+                    'processos-search',
+                    '#processos .team-item',
+                    'h4',
+                    'flex',
+                  )
+                "
+                placeholder="Buscar processo..."
+              />
+            </div>
+            <div class="team-grid">
+              <div
+                class="team-item"
+                onclick="openProcessModal('gestaoChamados')"
+              >
+                <i class="fas fa-tasks"></i>
+                <h4>Gestão de Chamados</h4>
+                <p>Ciclo de vida dos tickets no GLPI.</p>
+              </div>
+              <div class="team-item" onclick="openProcessModal('onboarding')">
+                <i class="fas fa-user-plus"></i>
+                <h4>Onboarding</h4>
+                <p>Boas-vindas e setup de novos membros.</p>
+              </div>
+              <div class="team-item" onclick="openProcessModal('gmud')">
+                <i class="fas fa-exchange-alt"></i>
+                <h4>GMUD</h4>
+                <p>Gestão de Mudanças controlada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organograma -->
+      <div id="organograma" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-sitemap"></i>
+            <h2>Organograma</h2>
+          </div>
+          <div class="card-body" style="text-align: center">
+            <img
+              src="https://i.ibb.co/46yXzXx/ORGANOGRAMA.png"
+              alt="Organograma"
+              style="
+                max-width: 100%;
+                border-radius: 12px;
+                box-shadow: var(--shadow);
+              "
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Portais -->
+      <div id="portais" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-globe"></i>
+            <h2>Portais Corporativos</h2>
+          </div>
+          <div class="card-body">
+            <div class="team-grid">
+              <div class="team-item" onclick="openPortalModal('portalElo')">
+                <i class="fas fa-building"></i>
+                <h4>Portal Elo</h4>
+                <p>
+                  Acesse aqui o
+                  <a
+                    href="http://portalelo.elocontactcenter.com.br/"
+                    target="_blank"
+                    style="color: var(--secondary-color)"
+                    >link oficial</a
+                  >.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sistemas -->
+      <div id="sistemas-operacoes" class="tab-content">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-network-wired"></i>
+            <h2>Sistemas de Operações</h2>
+          </div>
+          <div class="card-body" style="text-align: center; padding: 50px">
+            <i
+              class="fas fa-hard-hat"
+              style="
+                font-size: 4em;
+                color: var(--secondary-color);
+                margin-bottom: 20px;
+              "
+            ></i>
+            <p style="font-size: 1.2em">Esta seção está em construção.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeInfoModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <div id="modalContent" style="margin-top: 20px"></div>
+      </div>
+    </div>
+
+    <!-- Background Overlay for Sidebar -->
+    <div
+      id="sidebar-overlay"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10900;
+      "
+      onclick="closeSidebar()"
+    ></div>
+
+    <!-- Scripts -->
+    <script>
+// --- DATA CONFIGURATION ---
+const toolData = {
+  glpi: {
+    title: "GLPI (ITSM)",
+    text: "Sistema de gestão de chamados e ativos. <br><br><b>Acesso:</b> <a href='http://helpdesk/front/central.php' target='_blank'>Abrir GLPI</a>",
+  },
+  forponto: {
+    title: "Forponto",
+    text: "Registro de jornada de trabalho. <br><br><b>Marcação:</b> <a href='http://forpontoweb.elocontactcenter.com.br/ForpontoWeb/MArcacaoPonto.aspx' target='_blank'>Acessar</a>",
+  },
+  outlook: {
+    title: "Outlook",
+    text: "E-mail corporativo Microsoft 365. Utilizado para comunicações oficiais e agendamentos.",
+  },
+  discord: {
+    title: "Discord",
+    text: "Plataforma de comunicação em tempo real para equipes técnicas. <br><br><b>Link:</b> <a href='https://discord.gg/xeGRRgFf' target='_blank'>Entrar no Servidor</a>",
+  },
+  anydesk: {
+    title: "Anydesk",
+    text: "Suporte remoto rápido e seguro para estações de trabalho.",
+  },
+  grafana: {
+    title: "Grafana",
+    text: "Dashboards de monitoramento de infraestrutura em tempo real.",
+  },
+  ad: {
+    title: "Active Directory",
+    text: "Gerenciamento centralizado de usuários e permissões de rede.",
+  },
+};
+
+const structureData = {
+  helpdesk: {
+    title: "Helpdesk",
+    text: "Suporte N1 focado em resolução remota de incidentes e solicitações de baixa complexidade.",
+  },
+  fieldservice: {
+    title: "Fieldservice",
+    text: "Equipe presencial responsável pela manutenção de hardware e infraestrutura local.",
+  },
+  servicedesk: {
+    title: "Servicedesk",
+    text: "Ponto central de contato para registro e triagem de todas as demandas de TI.",
+  },
+  ga: {
+    title: "Gestão de Acessos",
+    text: "Responsável pelo provisionamento e controle de permissões em todos os sistemas corporativos.",
+  },
+  infra: {
+    title: "Infraestrutura",
+    text: "Administração de servidores, armazenamento e datacenters.",
+  },
+  redes: {
+    title: "Redes e Sistemas",
+    text: "Configuração e segurança de ativos de rede e conectividade.",
+  },
+  secinfo: {
+    title: "Segurança da Informação",
+    text: "Políticas de proteção de dados, antivírus e conformidade com LGPD.",
+  },
+  telecom: {
+    title: "Telecom",
+    text: "Gestão de telefonia IP, PABX e links de voz.",
+  },
+};
+
+const processData = {
+  gestaoChamados: {
+    title: "Gestão de Chamados",
+    text: "O fluxo segue: Abertura -> Triagem -> Atendimento -> Homologação -> Fechamento.",
+  },
+  onboarding: {
+    title: "Onboarding",
+    text: "Processo de preparação técnica para novos colaboradores: contas, acessos e equipamentos.",
+  },
+  gmud: {
+    title: "Gestão de Mudanças",
+    text: "Registro obrigatório para qualquer alteração em ambiente de produção para mitigar riscos.",
+  },
+};
+
+const portalData = {
+  portalElo: {
+    title: "Portal Elo",
+    text: "Intranet oficial para notícias, documentos e formulários internos. <br><br><b>URL:</b> <a href='http://portalelo.elocontactcenter.com.br/' target='_blank'>Acessar Portal</a>",
+  },
+};
+
+// --- CORE LOGIC ---
+
+// Tab System
+function openTab(evt, tabName) {
+  const tabContents = document.querySelectorAll(".tab-content");
+  const tabButtons = document.querySelectorAll(".tab-button");
+
+  tabContents.forEach((tab) => tab.classList.remove("active"));
+  tabButtons.forEach((btn) => btn.classList.remove("active"));
+
+  document.getElementById(tabName).classList.add("active");
+  if (evt) {
+    evt.currentTarget.classList.add("active");
+  } else {
+    // Fallback for direct calls (like from logo)
+    document
+      .querySelector(`.tab-button[onclick*="${tabName}"]`)
+      .classList.add("active");
+  }
+
+  // Smooth scroll to top when changing tabs
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// Sidebar System
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("sidebar-overlay");
+
+function openSidebar() {
+  sidebar.classList.add("active");
+  overlay.style.display = "block";
+}
+
+function closeSidebar() {
+  sidebar.classList.remove("active");
+  overlay.style.display = "none";
+}
+
+// Collapsible Submenu
+document.querySelectorAll(".sidebar-link").forEach((link) => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const item = this.parentElement;
+    item.classList.toggle("active");
+
+    // Rotate arrow
+    const arrow = this.querySelector(".arrow");
+    if (item.classList.contains("active")) {
+      arrow.style.transform = "rotate(90deg)";
+    } else {
+      arrow.style.transform = "rotate(0deg)";
+    }
+  });
+});
+
+// Modal System
+const modal = document.getElementById("infoModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalContent = document.getElementById("modalContent");
+
+function openInfoModal(title, content) {
+  modalTitle.innerText = title;
+  modalContent.innerHTML = content;
+  modal.style.display = "block";
+  document.body.style.overflow = "hidden"; // Prevent background scroll
+}
+
+function closeInfoModal() {
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    closeInfoModal();
+  }
+};
+
+// Helper openers
+function openToolModal(key) {
+  if (toolData[key]) openInfoModal(toolData[key].title, toolData[key].text);
+}
+function openStructureModal(key) {
+  if (structureData[key])
+    openInfoModal(structureData[key].title, structureData[key].text);
+}
+function openProcessModal(key) {
+  if (processData[key])
+    openInfoModal(processData[key].title, processData[key].text);
+}
+function openPortalModal(key) {
+  if (portalData[key])
+    openInfoModal(portalData[key].title, portalData[key].text);
+}
+function openGroupModal(name) {
+  openInfoModal(
+    "Grupo de Trabalho",
+    `Informações sobre o grupo <b>${name}</b> serão integradas em breve.`,
+  );
+}
+
+// Search System
+function filterGrid(inputId, itemSelector, textSelector, displayType) {
+  const filter = document.getElementById(inputId).value.toLowerCase();
+  const items = document.querySelectorAll(itemSelector);
+
+  items.forEach((item) => {
+    const text = item.querySelector(textSelector).textContent.toLowerCase();
+    if (text.includes(filter)) {
+      item.style.display = displayType;
+      item.style.animation = "fadeIn 0.3s ease";
+    } else {
+      item.style.display = "none";
+    }
+  });
+}
+
+// Cover Page System
+document.addEventListener("DOMContentLoaded", () => {
+  const coverPage = document.getElementById("cover-page");
+  const enterBtn = document.getElementById("enter-button");
+
+  function hideCover() {
+    coverPage.classList.add("hidden");
+    document.body.style.overflowY = "auto";
+    setTimeout(() => (coverPage.style.display = "none"), 800);
+  }
+
+  enterBtn.addEventListener("click", hideCover);
+
+  // Also allow scroll to enter
+  let scrollTriggered = false;
+  window.addEventListener("wheel", (e) => {
+    if (!scrollTriggered && e.deltaY > 0) {
+      scrollTriggered = true;
+      hideCover();
+    }
+  });
+});
+
+</script>
+  </body>
+</html>
