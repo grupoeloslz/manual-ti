@@ -1,6 +1,6 @@
 # Manual de T.I. - Central de Serviços Compartilhados Neural
 
-Este repositório contém o código-fonte do **Manual de Arquitetura e Procedimentos de T.I.** da Central de Serviços Compartilhados Neural (Grupo Elos). 
+Este repositório contém o código-fonte do **Manual de Arquitetura e Procedimentos de T.I.** da Central de Serviços Compartilhados Neural (Grupo Elo). 
 
 O sistema foi desenvolvido em formato *Single-Page Application* (SPA) utilizando HTML, CSS e JavaScript puros, agrupados em um único arquivo. Isso garante um carregamento extremamente leve, performance fluida e elimina a necessidade de infraestrutura complexa ou servidores backend.
 
@@ -45,4 +45,4 @@ Sendo uma página totalmente estática *Client-Side* sem dependências *Node.js*
 3. Dê um duplo-clique no arquivo `index.html` ou abra ele no seu navegador favorito (Google Chrome, Edge, Firefox, Safari).
 
 ---
-*Desenvolvido pela Equipe de Tecnologia - CSC Neural*
+*Desenvolvido pela Equipe de Tecnologia Neural*
