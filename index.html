@@ -355,17 +355,6 @@ main {
   grid-auto-rows: minmax(160px, auto);
 }
 
-.bento-featured {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-@media (max-width: 500px) {
-  .bento-featured {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-}
 
 /* Glassmorphism Cards */
 .tool-item,
@@ -1409,15 +1398,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const icon = card.querySelector("i");
     if (icon) {
       icon.style.filter = "drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))";
-    }
-  });
-
-  // Bento Box Highlights
-  const highlightTitles = ["GLPI", "Outlook"];
-  cards.forEach(card => {
-    const titleEle = card.querySelector("h4, .tool-name");
-    if (titleEle && highlightTitles.some(t => titleEle.textContent.includes(t))) {
-      card.classList.add("bento-featured");
     }
   });
 });
